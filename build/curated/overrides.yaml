@@ -1,0 +1,12 @@
+# Manual overrides. Highest priority for every field.
+#
+# segmentation:  lemma -> "за:PREF пис:ROOT а:SUFF ть:END"
+# stress:        lemma -> "записа́ть"
+# gloss_en:      lemma -> "to write down"
+# gloss_zh:      lemma -> "記下"
+# family:        lemma -> root lemma of the family it should belong to
+segmentation: {}
+stress: {}
+gloss_en: {}
+gloss_zh: {}
+family: {}

@@ -1,0 +1,18 @@
+# Build configuration
+filter:
+  min_zipf: 3.0            # keep lemmas with zipf >= this, or listed in Kelly / SMARTool
+stars:                     # zipf thresholds for frequency stars (5 -> 2); below the last -> 1
+  - [5.0, 5]
+  - [4.5, 4]
+  - [4.0, 3]
+  - [3.5, 2]
+segmentation:
+  uncertain_below: 0.8
+gloss:
+  max_chars: 80
+  max_senses: 2
+examples:
+  max_per_lemma: 3
+verb_forms:
+  max_participles: 4
+spot_checks: [писать, читать, делать, ходить, идти, работа, новый, говорить, брать, вода, водить]

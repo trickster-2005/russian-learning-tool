@@ -1,0 +1,42 @@
+prefixes:
+  - {affix: в-, variants: [в-, во-], meaning_en: "into, inward", meaning_zh: "進入、向內", examples: [войти, вписать]}
+  - {affix: вы-, variants: [вы-], meaning_en: "out, outward", meaning_zh: "向外、取出", examples: [выйти, выписать]}
+  - {affix: за-, variants: [за-], meaning_en: "start; drop in; write down", meaning_zh: "開始；順路進入；記下", examples: [заговорить, зайти, записать]}
+  - {affix: на-, variants: [на-], meaning_en: "onto a surface; often forms perfectives", meaning_zh: "在表面上；常用於構成完成體", examples: [написать]}
+  - {affix: о-, variants: [о-, об-, обо-], meaning_en: "around, all over", meaning_zh: "環繞、全面", examples: [обойти, описать]}
+  - {affix: от-, variants: [от-, ото-], meaning_en: "away, off", meaning_zh: "離開、分離", examples: [отойти, отрезать]}
+  - {affix: пере-, variants: [пере-], meaning_en: "across; re-", meaning_zh: "越過；重新", examples: [перейти, переписать]}
+  - {affix: под-, variants: [под-, подо-], meaning_en: "up to, approach; under", meaning_zh: "靠近；在下方", examples: [подойти, подписать]}
+  - {affix: при-, variants: [при-], meaning_en: "arrival; attachment", meaning_zh: "到達；附加", examples: [прийти, приписать]}
+  - {affix: про-, variants: [про-], meaning_en: "through, past; for a while", meaning_zh: "經過、穿過；持續一段時間", examples: [пройти, прочитать]}
+  - {affix: раз-, variants: [раз-, рас-, разо-], meaning_en: "apart, in all directions", meaning_zh: "分散、向四方", examples: [разойтись, разрезать]}
+  - {affix: с-, variants: [с-, со-], meaning_en: "down; together", meaning_zh: "向下；聚合", examples: [сойти, собрать]}
+  - {affix: у-, variants: [у-], meaning_en: "away, removal", meaning_zh: "離開、移除", examples: [уйти, убрать]}
+  - {affix: до-, variants: [до-], meaning_en: "up to a point; finish", meaning_zh: "到達某一點；做完", examples: [дойти, дописать]}
+  - {affix: без-, variants: [без-, бес-], meaning_en: "without, -less", meaning_zh: "無、沒有", examples: [безопасный]}
+  - {affix: не-, variants: [не-], meaning_en: "not, un-", meaning_zh: "不、非", examples: [неправда]}
+  - {affix: пред-, variants: [пред-, предо-], meaning_en: "before, pre-", meaning_zh: "在前、預先", examples: [предсказать]}
+
+suffixes:
+  - {affix: -тель, input_pos: VERB, output_pos: NOUN, semantic_type: agent_noun, meaning_en: "person who does it", meaning_zh: "做這件事的人", examples: [писатель, учитель]}
+  - {affix: -ние, variants: [-ние, -ание, -ение], input_pos: VERB, output_pos: NOUN, semantic_type: action_noun, meaning_en: "the action itself", meaning_zh: "動作本身", examples: [чтение, решение]}
+  - {affix: -щик, variants: [-щик, -чик], input_pos: [VERB, NOUN], output_pos: NOUN, semantic_type: agent_noun, meaning_en: "person doing a job", meaning_zh: "從事某事的人", examples: [переводчик]}
+  - {affix: -ник, input_pos: NOUN, output_pos: NOUN, semantic_type: person_noun, meaning_en: "person related to it", meaning_zh: "與某事物相關的人", examples: [работник]}
+  - {affix: -ость, input_pos: ADJ, output_pos: NOUN, semantic_type: quality_noun, meaning_en: "quality, state", meaning_zh: "性質、狀態", examples: [новость, сложность]}
+  - {affix: -ота, input_pos: ADJ, output_pos: NOUN, semantic_type: quality_noun, meaning_en: "quality", meaning_zh: "性質", examples: [красота, быстрота]}
+  - {affix: -изн-, input_pos: ADJ, output_pos: NOUN, semantic_type: quality_noun, meaning_en: "quality", meaning_zh: "性質", examples: [белизна]}
+  - {affix: -ск-, input_pos: NOUN, output_pos: ADJ, semantic_type: relational_adj, meaning_en: "of, relating to", meaning_zh: "屬於……的", examples: [городской]}
+  - {affix: -н-, input_pos: NOUN, output_pos: ADJ, semantic_type: relational_adj, meaning_en: "of, relating to", meaning_zh: "……的", examples: [водный, книжный]}
+  - {affix: -ов-, variants: [-ов-, -ев-], input_pos: NOUN, output_pos: ADJ, semantic_type: relational_adj, meaning_en: "made of, relating to", meaning_zh: "由……構成的、……的", examples: [берёзовый]}
+  - {affix: -о, input_pos: ADJ, output_pos: ADV, semantic_type: manner_adverb, meaning_en: "adjective to adverb", meaning_zh: "形容詞轉副詞", examples: [быстро]}
+  - {affix: -ыва-, variants: [-ыва-, -ива-, -ва-], input_pos: VERB, output_pos: VERB, semantic_type: secondary_imperfective, meaning_en: "makes a prefixed perfective imperfective again", meaning_zh: "把帶前綴的完成體動詞變回未完成體", examples: [записывать, переписывать]}
+  - {affix: -ну-, input_pos: VERB, output_pos: VERB, semantic_type: semelfactive, meaning_en: "a single, one-time action", meaning_zh: "一次性的動作", examples: [прыгнуть]}
+  - {affix: -ик, variants: [-ик, -чик], input_pos: NOUN, output_pos: NOUN, semantic_type: diminutive, meaning_en: "small (diminutive)", meaning_zh: "小的……（指小）", examples: [домик]}
+  - {affix: -ниц-, input_pos: NOUN, output_pos: NOUN, semantic_type: feminine, meaning_en: "female counterpart", meaning_zh: "女性的……", examples: [учительница]}
+  - {affix: -к-, input_pos: NOUN, output_pos: NOUN, semantic_type: feminine, meaning_en: "female counterpart", meaning_zh: "女性的……", examples: [студентка]}
+  - {affix: -к-, input_pos: VERB, output_pos: NOUN, semantic_type: action_noun, meaning_en: "action or its result", meaning_zh: "動作或其結果", examples: [подписка]}
+  - {affix: -а-, variants: [-а-, -я-], input_pos: NOUN, output_pos: VERB, semantic_type: verbalizer, meaning_en: "noun to verb", meaning_zh: "名詞轉動詞", examples: [работать]}
+  - {affix: -и-, input_pos: [ADJ, NOUN], output_pos: VERB, semantic_type: verbalizer, meaning_en: "make / do (verbalizer)", meaning_zh: "使成為、做（轉動詞）", examples: [белить]}
+
+postfixes:
+  - {affix: -ся, variants: [-ся, -сь], input_pos: VERB, output_pos: VERB, semantic_type: reflexive, meaning_en: "reflexive, reciprocal or passive", meaning_zh: "反身、相互或被動", examples: [мыться]}

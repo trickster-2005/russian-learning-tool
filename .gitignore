@@ -1,0 +1,17 @@
+# Python build
+build/.cache/
+build/.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Frontend
+web/node_modules/
+web/dist/
+*.local
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

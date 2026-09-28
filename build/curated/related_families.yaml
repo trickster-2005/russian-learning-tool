@@ -1,0 +1,6 @@
+# Families that share a historical root but are separate trees in DeriNet.
+# The build links them with "See related families"; trees are never merged.
+groups:
+  - {label: "-бир- / -бер- / -бр-", lemmas: [брать, собирать, собрать, выбирать, выбрать]}
+  - {label: "-лаг- / -лож-", lemmas: [предлагать, предложить, излагать, изложить]}
+  - {label: "-ним- / -ня- / -им-", lemmas: [понимать, понять, принимать, принять, снимать, снять]}

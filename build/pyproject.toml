@@ -1,0 +1,24 @@
+[project]
+name = "rwf-build"
+version = "0.1.0"
+description = "Offline data build for Russian Word Families"
+requires-python = ">=3.11"
+dependencies = [
+    "pymorphy3",
+    "pymorphy3-dicts-ru",
+    "wordfreq",
+    "ruaccent",
+    "rumorpheme",
+    "opencc",
+    "xlrd",
+    "polars",
+    "pyyaml",
+    "requests",
+]
+
+[dependency-groups]
+dev = ["pytest"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
