@@ -17,6 +17,20 @@ interface Props {
   onSelect: (id: string) => void;
 }
 
+/** External dictionaries for a lemma; the Chinese Wiktionary is listed first in 中文 mode. */
+export function dictionaryLinks(lemma: string, lang: string) {
+  const w = encodeURIComponent(lemma);
+  const links = [
+    { name: "Wiktionary", url: `https://en.wiktionary.org/wiki/${w}#Russian`, lang: "en", note: "" },
+    { name: "維基詞典", url: `https://zh.wiktionary.org/wiki/${w}#俄語`, lang: "zh-Hant", note: "" },
+    { name: "Викисловарь", url: `https://ru.wiktionary.org/wiki/${w}`, lang: "ru", note: "detail.dict.ruOnly" },
+    { name: "OpenRussian", url: `https://en.openrussian.org/ru/${w}`, lang: "en", note: "detail.dict.forms" },
+    { name: "Forvo", url: `https://forvo.com/word/${w}/#ru`, lang: "en", note: "detail.dict.audio" },
+  ];
+  if (lang === "zh-Hant") links.unshift(links.splice(1, 1)[0]);
+  return links;
+}
+
 function highlight(sentence: string, form: string) {
   const plain = (s: string) => s.normalize("NFD").replace(/[́̀]/g, "").toLowerCase().replace(/ё/g, "е");
   if (!form) return sentence;
@@ -142,6 +156,20 @@ export default function DetailPanel({ model, id, levelSource, onClose, onSelect 
         </p>
       )}
 
+      <h3>{t("detail.dictionaries")}</h3>
+      <ul className="dict-links">
+        {dictionaryLinks(node.lemma, lang).map((d) => (
+          <li key={d.url}>
+            <a href={d.url} target="_blank" rel="noopener noreferrer" lang={d.lang}>
+              {d.name}
+              <span aria-hidden="true"> ↗</span>
+              <span className="visually-hidden"> ({t("detail.opensNewTab")})</span>
+            </a>
+            {d.note && <span className="muted"> · {t(d.note)}</span>}
+          </li>
+        ))}
+      </ul>
+
       {parent && edge && (
         <>
           <h3>{t("detail.formation")}</h3>
@@ -251,6 +279,7 @@ export default function DetailPanel({ model, id, levelSource, onClose, onSelect 
           )}
         </>
       )}
+
 
       {entry && (
         <>

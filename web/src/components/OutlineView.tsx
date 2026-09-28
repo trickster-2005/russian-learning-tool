@@ -99,7 +99,7 @@ export default function OutlineView(p: Props) {
         }}
       >
         <div
-          className={`row${p.selected === v.id ? " selected" : ""}${nv.myClass === "next" ? " next" : ""}`}
+          className={`row${p.selected === v.id ? " selected" : ""}${p.focusId === v.id ? " focused" : ""}${nv.myClass === "next" ? " next" : ""}`}
           style={{ opacity: nv.opacity }}
           title={nv.pathNode ? t("tree.pathNode") : undefined}
         >

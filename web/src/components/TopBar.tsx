@@ -100,12 +100,19 @@ export default function TopBar() {
       }}>
         {t("app.skip")}
       </a>
-      <Link to="/" className="brand">
-        {t("app.title")}
+      <Link to="/" className="brand" aria-label={t("app.title")}>
+        <span className="brand-mark" aria-hidden="true">
+          Ж
+        </span>
+        <span className="brand-text">{t("app.title")}</span>
       </Link>
       {!isHome && <SearchBox />}
       <nav className="topnav" aria-label={t("nav.main")}>
-        {lastFamily && <NavLink to={`/family/${lastFamily}`}>{t("nav.family")}</NavLink>}
+        {lastFamily && (
+          <NavLink className="nav-family" to={`/family/${lastFamily}`}>
+            {t("nav.family")}
+          </NavLink>
+        )}
         <NavLink to="/browse">{t("nav.browse")}</NavLink>
         <NavLink to="/about">{t("nav.about")}</NavLink>
         <div className="lang-toggle" role="group" aria-label={t("lang.label")}>

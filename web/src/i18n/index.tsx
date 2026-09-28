@@ -1,10 +1,11 @@
-import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
+import { useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
+import { I18nContext, type I18nValue, type Lang } from "./context";
 import en from "./en.json";
 import zh from "./zh-Hant.json";
 import topicsZh from "./topics.zh-Hant.json";
 import { readStore, writeStore } from "../lib/storage";
 
-export type Lang = "en" | "zh-Hant";
+export type { Lang } from "./context";
 type Dict = Record<string, string>;
 
 const DICTS: Record<Lang, Dict> = { en, "zh-Hant": zh };
@@ -42,14 +43,6 @@ function initialLang(): Lang {
   return stored === "zh-Hant" ? "zh-Hant" : "en";
 }
 
-interface I18nValue {
-  lang: Lang;
-  setLang: (l: Lang) => void;
-  t: (key: string, vars?: Record<string, string | number>) => string;
-  topicName: (topic: string, en?: string) => string;
-}
-
-const I18nContext = createContext<I18nValue | null>(null);
 
 export function I18nProvider({ children }: { children: ReactNode }) {
   const [lang, setLangState] = useState<Lang>(initialLang);

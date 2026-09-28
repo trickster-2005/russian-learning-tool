@@ -169,10 +169,15 @@ export default function SearchBox({ big = false, autoFocus = false }: { big?: bo
             onBlur={() => window.setTimeout(() => setOpen(false), 150)}
             onKeyDown={onKeyDown}
           />
-          {big && (
+          {big ? (
             <button className="btn btn-primary" type="submit" disabled={busy}>
               {t("search.button")}
             </button>
+          ) : (
+            <label className="root-toggle" title={t("search.rootMode")}>
+              <input type="checkbox" checked={rootMode} onChange={(e) => setRootMode(e.target.checked)} />
+              <span>{t("search.rootShort")}</span>
+            </label>
           )}
         </div>
         {showList && (
@@ -204,10 +209,12 @@ export default function SearchBox({ big = false, autoFocus = false }: { big?: bo
             ))}
           </ul>
         )}
-        <label className="check search-hint">
-          <input type="checkbox" checked={rootMode} onChange={(e) => setRootMode(e.target.checked)} />
-          {t("search.rootMode")}
-        </label>
+        {big && (
+          <label className="check search-hint">
+            <input type="checkbox" checked={rootMode} onChange={(e) => setRootMode(e.target.checked)} />
+            {t("search.rootMode")}
+          </label>
+        )}
         {latin && (
           <p id={hintId} className="search-hint" role="status">
             {t("search.latinHint")}

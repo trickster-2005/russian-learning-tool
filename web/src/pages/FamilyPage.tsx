@@ -18,7 +18,7 @@ import {
 } from "../lib/filters";
 import { levelOf, levelRank } from "../lib/levels";
 import { useSettings } from "../lib/settings";
-import { writeStore } from "../lib/storage";
+import { readStore, writeStore } from "../lib/storage";
 import { ancestors, CHILD_LIMIT, defaultExpanded, visibleTree, type TreeShape } from "../lib/visibleTree";
 import TreeView from "../components/TreeView";
 import OutlineView from "../components/OutlineView";
@@ -30,6 +30,8 @@ import LevelBadge from "../components/LevelBadge";
 import Gloss from "../components/Gloss";
 
 const isWide = () => typeof window === "undefined" || window.innerWidth >= 768;
+/** Same breakpoint as the CSS: above it the filter panel sits beside the tree. */
+const isDrawerInline = () => typeof window === "undefined" || window.innerWidth > 900;
 
 export default function FamilyPage() {
   const { id } = useParams();
@@ -63,7 +65,26 @@ function FamilyView({ model }: { model: FamilyModel }) {
   const focusParam = params.get("focus");
   const [meta, setMeta] = useState<Meta | null>(null);
   const [view, setView] = useState<"tree" | "outline">(isWide() ? "tree" : "outline");
-  const [drawer, setDrawer] = useState(false);
+  // Filters start open on tablets/desktops (remembered per browser); on phones
+  // the panel is a full-screen sheet, so it starts closed.
+  const [drawer, setDrawerState] = useState(() => {
+    if (!isDrawerInline()) return false;
+    return readStore("rwf.filtersOpen") !== "0";
+  });
+  const setDrawer = (open: boolean) => {
+    setDrawerState(open);
+    if (isDrawerInline()) writeStore("rwf.filtersOpen", open ? "1" : "0");
+  };
+  // Crossing into phone width (rotation, resizing) turns the panel into a
+  // full-screen sheet; don't let it cover the tree unasked. Back on wide
+  // screens, restore the remembered preference.
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 900px)");
+    const sync = () => setDrawerState(mq.matches ? false : readStore("rwf.filtersOpen") !== "0");
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
   const [listSort, setListSort] = useState<"level" | "stars" | "alpha">("level");
 
   useEffect(() => {
@@ -153,7 +174,8 @@ function FamilyView({ model }: { model: FamilyModel }) {
 
   const [expanded, setExpanded] = useState<Set<string>>(() => initialExpansion().exp);
   const [showAll, setShowAll] = useState<Set<string>>(() => initialExpansion().all);
-  const [selected, setSelected] = useState<string | null>(focusId);
+  // On phones the detail panel is a bottom sheet over the tree, so arriving with ?focus only highlights the word.
+  const [selected, setSelected] = useState<string | null>(isDrawerInline() ? focusId : null);
   const [kbFocus, setKbFocus] = useState<string | null>(focusId);
   const [centerOn, setCenterOn] = useState<string | null>(focusId);
 
@@ -165,7 +187,7 @@ function FamilyView({ model }: { model: FamilyModel }) {
 
   useEffect(() => {
     if (focusId) {
-      setSelected(focusId);
+      if (isDrawerInline()) setSelected(focusId);
       setCenterOn(focusId);
       setKbFocus(focusId);
     }
@@ -301,7 +323,7 @@ function FamilyView({ model }: { model: FamilyModel }) {
           </span>
         </div>
         <div className="toolbar">
-          <button className="btn" aria-expanded={drawer} onClick={() => setDrawer((d) => !d)}>
+          <button className="btn" aria-expanded={drawer} onClick={() => setDrawer(!drawer)}>
             {t("filter.title")}
             {activeFilterCount > 0 ? ` (${activeFilterCount})` : ""}
           </button>

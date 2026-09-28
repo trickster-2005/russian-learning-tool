@@ -215,5 +215,14 @@
   "posShort.NUM": "num.",
   "posShort.PRON": "pron.",
   "posShort.FUNC": "func.",
-  "posShort.OTHER": "other"
+  "posShort.OTHER": "other",
+  "search.rootShort": "Root",
+  "detail.dictionaries": "Dictionaries",
+  "detail.opensNewTab": "opens in a new tab",
+  "detail.dict.ruOnly": "in Russian",
+  "detail.dict.forms": "all forms",
+  "detail.dict.audio": "pronunciation",
+  "browse.tabShort.families": "Families",
+  "browse.tabShort.affix": "By affix",
+  "browse.tabShort.formation": "By pattern"
 }

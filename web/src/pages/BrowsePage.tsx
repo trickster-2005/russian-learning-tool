@@ -114,7 +114,10 @@ export default function BrowsePage() {
           ] as const
         ).map(([k, label]) => (
           <button key={k} role="tab" aria-selected={tab === k} onClick={() => setTab(k)}>
-            {t(label)}
+            <span className="tab-long">{t(label)}</span>
+            <span className="tab-short" aria-hidden="true">
+              {t(`browse.tabShort.${k}`)}
+            </span>
           </button>
         ))}
       </div>

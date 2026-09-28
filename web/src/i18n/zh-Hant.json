@@ -215,5 +215,14 @@
   "posShort.NUM": "數",
   "posShort.PRON": "代",
   "posShort.FUNC": "虛",
-  "posShort.OTHER": "他"
+  "posShort.OTHER": "他",
+  "search.rootShort": "詞根",
+  "detail.dictionaries": "外部詞典",
+  "detail.opensNewTab": "在新分頁開啟",
+  "detail.dict.ruOnly": "俄文",
+  "detail.dict.forms": "所有變化形",
+  "detail.dict.audio": "發音",
+  "browse.tabShort.families": "詞族",
+  "browse.tabShort.affix": "依詞綴",
+  "browse.tabShort.formation": "依構詞"
 }

@@ -369,7 +369,7 @@ export default function TreeView(p: TreeViewProps) {
                       if (el) itemRefs.current.set(key, el);
                       else itemRefs.current.delete(key);
                     }}
-                    className={`node${p.selected === id ? " selected" : ""}${nv.myClass === "next" ? " next" : ""}${nv.pathNode ? " path-node" : ""}`}
+                    className={`node${p.selected === id ? " selected" : ""}${p.focusId === id ? " focused" : ""}${nv.myClass === "next" ? " next" : ""}${nv.pathNode ? " path-node" : ""}`}
                     transform={`translate(${q.x},${q.y})`}
                     role="treeitem"
                     aria-level={v.depth + 1}

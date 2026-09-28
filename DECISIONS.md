@@ -23,6 +23,11 @@ Small decisions made while building, one line each: what was decided and why.
 - Light-theme ending color darkened from #6B7478 to #626B6F: the spec value gives 4.36:1 on --bg, below the 4.5:1 requirement.
 - Topic names in Chinese were translated by hand into `web/src/i18n/topics.zh-Hant.json`.
 - Curated `family` overrides fix what the rules can't: вод- "lead" (водить, завод, ввод, привод) is separated from вода "water"; работать is placed under работа.
+- Layout: the app is a fixed-height shell (top bar + scrolling main area); the family page's panels scroll on their own instead of relying on a hard-coded top-bar height, so nothing is pushed off-screen.
+- Filter panel: open by default above 900 px wide (choice remembered in `rwf.filtersOpen`); on phones it is a full-screen sheet, so it starts closed and closes when the screen crosses into phone width.
+- On phones, arriving with `?focus=` highlights and centers the word but doesn't open the bottom sheet, so the tree stays visible.
+- External dictionary links (Wiktionary en/zh/ru, OpenRussian, Forvo) sit right after the meaning in the detail panel; in 中文 mode the Chinese Wiktionary is listed first.
+- The i18n React context lives in `web/src/i18n/context.ts` (no JSON imports) so editing translations during development can't create a second context.
 
 ## Recorded by the build (`log_decision` in `build/`)
 
