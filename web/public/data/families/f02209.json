@@ -1,0 +1,1 @@
+{"id":"f02209","root_lemma":"зов","nodes":[{"id":"n0","lemma":"зов","pos":"NOUN","is_path_node":false},{"id":"n1","lemma":"вызов","pos":"NOUN","is_path_node":false}],"edges":[{"parent":"n0","child":"n1","added_prefixes":["вы-"],"added_suffixes":[],"added_postfixes":[],"root_alternation":false,"pos_change":"NOUN>NOUN","semantic_type":null}],"cross_links":[],"related_families":[]}

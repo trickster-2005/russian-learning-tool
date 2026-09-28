@@ -1,0 +1,1 @@
+{"id":"f02589","root_lemma":"миг","nodes":[{"id":"n0","lemma":"миг","pos":"NOUN","is_path_node":false},{"id":"n1","lemma":"вмиг","pos":"ADV","is_path_node":false}],"edges":[{"parent":"n0","child":"n1","added_prefixes":[],"added_suffixes":[],"added_postfixes":[],"root_alternation":true,"pos_change":"NOUN>ADV","semantic_type":null}],"cross_links":[],"related_families":[]}

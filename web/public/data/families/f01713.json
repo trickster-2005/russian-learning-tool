@@ -1,0 +1,1 @@
+{"id":"f01713","root_lemma":"Авив","nodes":[{"id":"n0","lemma":"Авив","pos":"NOUN","is_path_node":false},{"id":"n1","lemma":"Авива","pos":"NOUN","is_path_node":false}],"edges":[{"parent":"n0","child":"n1","added_prefixes":[],"added_suffixes":[],"added_postfixes":[],"root_alternation":false,"pos_change":"NOUN>NOUN","semantic_type":null}],"cross_links":[],"related_families":[]}

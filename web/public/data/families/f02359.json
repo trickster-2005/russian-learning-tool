@@ -1,0 +1,1 @@
+{"id":"f02359","root_lemma":"коля","nodes":[{"id":"n0","lemma":"коля","pos":"NOUN","is_path_node":false},{"id":"n1","lemma":"колин","pos":"ADJ","is_path_node":false}],"edges":[{"parent":"n0","child":"n1","added_prefixes":[],"added_suffixes":["-ин"],"added_postfixes":[],"root_alternation":false,"pos_change":"NOUN>ADJ","semantic_type":null}],"cross_links":[],"related_families":[]}

@@ -1,0 +1,1 @@
+{"id":"f02314","root_lemma":"Катя","nodes":[{"id":"n0","lemma":"Катя","pos":"NOUN","is_path_node":false},{"id":"n1","lemma":"Катюша","pos":"NOUN","is_path_node":false}],"edges":[{"parent":"n0","child":"n1","added_prefixes":[],"added_suffixes":[],"added_postfixes":[],"root_alternation":true,"pos_change":"NOUN>NOUN","semantic_type":null}],"cross_links":[],"related_families":[]}

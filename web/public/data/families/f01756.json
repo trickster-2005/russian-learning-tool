@@ -1,0 +1,1 @@
+{"id":"f01756","root_lemma":"Ангуса","nodes":[{"id":"n0","lemma":"Ангуса","pos":"NOUN","is_path_node":true},{"id":"n1","lemma":"Ангус","pos":"NOUN","is_path_node":false}],"edges":[{"parent":"n0","child":"n1","added_prefixes":[],"added_suffixes":[],"added_postfixes":[],"root_alternation":false,"pos_change":"NOUN>NOUN","semantic_type":null}],"cross_links":[],"related_families":[]}

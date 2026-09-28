@@ -1,0 +1,1 @@
+{"id":"f03593","root_lemma":"Яго","nodes":[{"id":"n0","lemma":"Яго","pos":"NOUN","is_path_node":true},{"id":"n1","lemma":"Яга","pos":"NOUN","is_path_node":false}],"edges":[{"parent":"n0","child":"n1","added_prefixes":[],"added_suffixes":[],"added_postfixes":[],"root_alternation":true,"pos_change":"NOUN>NOUN","semantic_type":null}],"cross_links":[],"related_families":[]}

@@ -1,0 +1,1 @@
+{"id":"f03001","root_lemma":"прясть","nodes":[{"id":"n0","lemma":"прясть","pos":"VERB","is_path_node":true},{"id":"n1","lemma":"прядь","pos":"NOUN","is_path_node":false}],"edges":[{"parent":"n0","child":"n1","added_prefixes":[],"added_suffixes":[],"added_postfixes":[],"root_alternation":true,"pos_change":"VERB>NOUN","semantic_type":null}],"cross_links":[],"related_families":[]}

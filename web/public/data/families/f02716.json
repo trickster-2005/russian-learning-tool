@@ -1,0 +1,1 @@
+{"id":"f02716","root_lemma":"Нигер","nodes":[{"id":"n0","lemma":"Нигер","pos":"NOUN","is_path_node":false},{"id":"n1","lemma":"Нигерия","pos":"NOUN","is_path_node":false}],"edges":[{"parent":"n0","child":"n1","added_prefixes":[],"added_suffixes":[],"added_postfixes":[],"root_alternation":true,"pos_change":"NOUN>NOUN","semantic_type":null}],"cross_links":[],"related_families":[]}

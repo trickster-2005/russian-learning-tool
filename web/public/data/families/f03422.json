@@ -1,0 +1,1 @@
+{"id":"f03422","root_lemma":"Франц","nodes":[{"id":"n0","lemma":"Франц","pos":"NOUN","is_path_node":false},{"id":"n1","lemma":"Франция","pos":"NOUN","is_path_node":false}],"edges":[{"parent":"n0","child":"n1","added_prefixes":[],"added_suffixes":[],"added_postfixes":[],"root_alternation":true,"pos_change":"NOUN>NOUN","semantic_type":null}],"cross_links":[],"related_families":[]}

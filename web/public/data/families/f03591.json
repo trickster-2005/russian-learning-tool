@@ -1,0 +1,1 @@
+{"id":"f03591","root_lemma":"ява","nodes":[{"id":"n0","lemma":"ява","pos":"NOUN","is_path_node":false},{"id":"n1","lemma":"наяву","pos":"ADV","is_path_node":false}],"edges":[{"parent":"n0","child":"n1","added_prefixes":[],"added_suffixes":["-у"],"added_postfixes":[],"root_alternation":true,"pos_change":"NOUN>ADV","semantic_type":null}],"cross_links":[],"related_families":[]}

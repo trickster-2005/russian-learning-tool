@@ -1,0 +1,1 @@
+{"id":"f02895","root_lemma":"Поль","nodes":[{"id":"n0","lemma":"Поль","pos":"NOUN","is_path_node":false},{"id":"n1","lemma":"Поля","pos":"NOUN","is_path_node":false}],"edges":[{"parent":"n0","child":"n1","added_prefixes":[],"added_suffixes":[],"added_postfixes":[],"root_alternation":true,"pos_change":"NOUN>NOUN","semantic_type":null}],"cross_links":[],"related_families":[]}

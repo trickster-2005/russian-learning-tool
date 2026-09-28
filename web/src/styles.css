@@ -11,7 +11,7 @@
   --m-pref: #1d5fa8;
   --m-root: #a8261d;
   --m-suff: #2e7033;
-  --m-end: #6b7478;
+  --m-end: #626b6f; /* spec #6B7478 is 4.36:1 on --bg; darkened to pass 4.5:1 */
   --m-post: #6e4596;
 
   --lv-A1: #ddefd9;

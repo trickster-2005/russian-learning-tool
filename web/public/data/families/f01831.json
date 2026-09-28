@@ -1,0 +1,1 @@
+{"id":"f01831","root_lemma":"Берти","nodes":[{"id":"n0","lemma":"Берти","pos":"NOUN","is_path_node":true},{"id":"n1","lemma":"Берта","pos":"NOUN","is_path_node":false}],"edges":[{"parent":"n0","child":"n1","added_prefixes":[],"added_suffixes":[],"added_postfixes":[],"root_alternation":true,"pos_change":"NOUN>NOUN","semantic_type":null}],"cross_links":[],"related_families":[]}

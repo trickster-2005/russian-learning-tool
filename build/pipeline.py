@@ -38,6 +38,10 @@ ENDINGS = {
 }
 
 
+RARE_PARENT_GAP = 1.25
+BASE_WORD_MIN_DERIVED = 10
+
+
 def log(msg: str) -> None:
     print(time.strftime("%H:%M:%S"), msg, flush=True)
 
@@ -159,12 +163,50 @@ class Pipeline:
                 return True
         return False
 
+    def pos_confirmed(self, g: str) -> bool:
+        lemma, pos = self.b.lemma[g], self.b.pos[g]
+        if self.morph.lemma_parses(lemma, pos):
+            return True
+        if pos == "ADJ" and self.morph.is_participle_adj(lemma):
+            return True
+        if self.wikt_en and any(e.pos == pos for e in self.wikt_en.get(norm_key(lemma), [])):
+            return True
+        return False
+
+    def is_inflected_form(self, g: str) -> bool:
+        """A word form stored as a lemma (говоря of говорить) when its lemma is also a node."""
+        lemma = self.b.lemma[g]
+        if self.morph.is_dictionary_lemma(lemma):
+            return False
+        key = norm_key(lemma)
+        for p in self.morph.parses(lemma.lower()):
+            if type(p.methods_stack[0][0]).__name__ != "DictionaryAnalyzer" or norm_key(p.word) != key:
+                continue
+            nf = norm_key(p.normal_form)
+            if nf != key and nf in self.lemma_keys:
+                return True
+        return False
+
     def clean_trees(self) -> None:
         """Remove non-words; children attach to the nearest real-word ancestor."""
         log("step 1b: removing non-words")
         b = self.b
         b.valid = {gid for gid in b.lemma if self.is_real_word(gid)}
         b.stats["nonword_nodes_removed"] = len(b.lemma) - len(b.valid)
+        # Duplicates with an unconfirmed POS (ходить NOUN next to ходить VERB) and inflected forms.
+        self.lemma_keys = {norm_key(b.lemma[g]) for g in b.valid}
+        confirmed = {g for g in b.valid if self.pos_confirmed(g)}
+        confirmed_lemmas = {b.lemma[g] for g in confirmed}
+        dup = {g for g in b.valid if g not in confirmed and b.lemma[g] in confirmed_lemmas}
+        forms = {g for g in b.valid - dup if g not in confirmed and self.is_inflected_form(g)}
+        b.valid -= dup | forms
+        b.stats["wrong_pos_duplicates_removed"] = len(dup)
+        b.stats["inflected_forms_removed"] = len(forms)
+        log_decision(
+            "A node whose POS neither pymorphy3 nor en-Wiktionary confirms is dropped when a node with the same "
+            "lemma and a confirmed POS exists (DeriNet has e.g. ходить/приходить tagged NOUN besides VERB), and "
+            "word forms stored as lemmas (говоря, a form of говорить) are dropped when their lemma is a node."
+        )
         new_parent: dict[str, str | None] = {}
         for g in b.valid:
             p = b.parent[g]
@@ -224,15 +266,41 @@ class Pipeline:
             return None
         return sum(1 for m in seg.morphemes if m.type in ("PREF", "SUFF", "POSTFIX"))
 
+    def prefixes(self, g: str) -> int:
+        seg = self.segmenter.segment(self.b.lemma[g], self.b.seg_raw.get(g, ""))
+        return sum(1 for m in seg.morphemes if m.type == "PREF") if seg else 0
+
     def inverted(self, p: str, c: str) -> bool:
+        """Derivation adds affixes and never removes a prefix (выговор→говорить is inverted)."""
         cp, cc = self.complexity(p), self.complexity(c)
-        return cp is not None and cc is not None and cp > cc
+        if cp is None or cc is None:
+            return False
+        return cp > cc or self.prefixes(p) > self.prefixes(c)
+
+    def base_word_mismatch(self, p: str, c: str) -> bool:
+        """c is a base word in Wiktionary (many derived terms) whose entry never mentions p (пися→писать)."""
+        if not self.wikt_en:
+            return False
+        entries = [e for e in self.wikt_en.get(norm_key(self.b.lemma[c]), []) if e.pos == self.b.pos[c]]
+        if not entries or entries[0].derived < BASE_WORD_MIN_DERIVED:
+            return False
+        pk = norm_key(self.b.lemma[p])
+        if any(pk in e.related for e in entries):
+            return False
+        # The parent's own entry may list the child as derived (дело → делать).
+        return not any(norm_key(self.b.lemma[c]) in e.related for e in self.wikt_en.get(pk, []))
+
+    def rare_parent(self, p: str, c: str) -> bool:
+        """A basic word hanging under a far rarer, unlisted word (пися→писать, бра→брать)."""
+        if norm_key(self.b.lemma[p]) in self.level_keys:
+            return False
+        return self.zipf(c) - self.zipf(p) >= RARE_PARENT_GAP
 
     def cut_implausible(self) -> None:
         """Cut machine-built edges whose roots differ (деться -> он) or whose direction is inverted (запись -> писать)."""
         log("step 1e: cutting implausible DeriNet edges")
         b = self.b
-        cut_roots = cut_inverted = 0
+        cut_roots = cut_inverted = cut_rare = cut_base = 0
         for g in sorted(b.valid):
             p = b.parent[g]
             if p is None or g in self.wikt_confirmed:
@@ -243,8 +311,26 @@ class Pipeline:
             elif self.inverted(p, g):
                 b.parent[g] = None
                 cut_inverted += 1
+            elif self.rare_parent(p, g):
+                b.parent[g] = None
+                cut_rare += 1
+            elif self.base_word_mismatch(p, g):
+                b.parent[g] = None
+                cut_base += 1
         b.stats["edges_cut_root_mismatch"] = cut_roots
         b.stats["edges_cut_inverted"] = cut_inverted
+        b.stats["edges_cut_rare_parent"] = cut_rare
+        b.stats["edges_cut_base_word"] = cut_base
+        log_decision(
+            f"Base-word rule: when a word's en-Wiktionary entry lists at least {BASE_WORD_MIN_DERIVED} derived terms "
+            "(Wiktionary treats it as a base) and neither entry mentions its unconfirmed DeriNet parent/child pair, "
+            "the edge is cut (пися→писать, бри→брать, выговор→говорить). Also applied when re-attaching orphans."
+        )
+        log_decision(
+            f"Unconfirmed DeriNet edges are also cut when the child is at least {RARE_PARENT_GAP} Zipf more frequent "
+            "than a parent that is on no level list (пися→писать, бра→брать, новь→новый); the same test applies "
+            "when re-attaching orphans."
+        )
         log_decision(
             "DeriNet.RU edges not confirmed by Wiktionary are cut when parent and child roots (model segmentation, "
             "else stem) share a common subsequence shorter than 60% of the shorter root (keeps читать→чтение, "
@@ -252,7 +338,7 @@ class Pipeline:
         )
         log_decision(
             "Direction rule: derivation adds affixes, so an unconfirmed DeriNet edge whose parent has more "
-            "prefixes+suffixes+postfixes than the child is treated as inverted and cut (запись→писать, вход→ходить, "
+            "prefixes+suffixes+postfixes (or more prefixes) than the child is treated as inverted and cut (запись→писать, вход→ходить, "
             "водить→вода). Orphan re-attachment only picks parents that are not more complex than the orphan."
         )
 
@@ -274,7 +360,7 @@ class Pipeline:
             for c in by_tree[b.tree_of[g]]:
                 if c == g or self._subtree_contains(b.parent, g, c):
                     continue
-                if self.root_of(c) != rg or self.inverted(c, g):
+                if self.root_of(c) != rg or self.inverted(c, g) or self.rare_parent(c, g) or self.base_word_mismatch(c, g):
                     continue
                 score = (len(b.lemma[c]) < len(b.lemma[g]), self.zipf(c))
                 if best_score is None or score > best_score:
@@ -308,10 +394,15 @@ class Pipeline:
         return False
 
     def etym_bases(self, g: str) -> list[str]:
+        """Bases named by the etymology of the first en-Wiktionary entry with this POS
+        (later entries are often rare homographs, e.g. вода 'водить + -а')."""
         if not self.wikt_en:
             return []
+        entries = self.wikt_en.get(norm_key(self.b.lemma[g]), [])
+        same_pos = [e for e in entries if e.pos == self.b.pos[g]]
+        entries = same_pos[:1] or entries[:1]
         out = []
-        for e in self.wikt_en.get(norm_key(self.b.lemma[g]), []):
+        for e in entries:
             for t in e.etym:
                 _, base, _ = wiktionary.parse_affix_template(t)
                 if base and " " not in base:
@@ -651,12 +742,11 @@ class Pipeline:
         e.added_prefixes = list(dict.fromkeys(added_pref))
         e.added_suffixes = list(dict.fromkeys(s for s, _ in added_suff))
         e.added_postfixes = list(dict.fromkeys(added_post))
-        # semantic type: outermost suffix, else postfix
-        for s, entries in reversed(added_suff):
-            ent = self.pick_semantic(entries, ppos, cpos)
+        # semantic type: the outermost suffix only (правительство is -ств-, not an agent noun), else postfix
+        if added_suff:
+            ent = self.pick_semantic(added_suff[-1][1], ppos, cpos)
             if ent:
                 e.semantic_type = ent.get("semantic_type")
-                break
         if e.semantic_type is None and e.added_postfixes:
             e.semantic_type = "reflexive"
         for a in e.added_prefixes:

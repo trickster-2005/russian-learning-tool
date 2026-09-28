@@ -121,7 +121,8 @@ export default function TreeView(p: TreeViewProps) {
   }, [p.visible, p.view, t, fontTick]);
 
   // ---------- zoom ----------
-  useEffect(() => {
+  // Layout effect so the behavior exists before the first fit/center below runs.
+  useLayoutEffect(() => {
     const svg = svgRef.current;
     if (!svg) return;
     const z = d3zoom<SVGSVGElement, unknown>()

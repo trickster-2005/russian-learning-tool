@@ -1,0 +1,1 @@
+{"id":"f01906","root_lemma":"бык","nodes":[{"id":"n0","lemma":"бык","pos":"NOUN","is_path_node":false},{"id":"n1","lemma":"бычок","pos":"NOUN","is_path_node":false}],"edges":[{"parent":"n0","child":"n1","added_prefixes":[],"added_suffixes":["-ок"],"added_postfixes":[],"root_alternation":true,"pos_change":"NOUN>NOUN","semantic_type":null}],"cross_links":[],"related_families":[]}

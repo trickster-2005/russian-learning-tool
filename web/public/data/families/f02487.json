@@ -1,0 +1,1 @@
+{"id":"f02487","root_lemma":"лива","nodes":[{"id":"n0","lemma":"лива","pos":"NOUN","is_path_node":true},{"id":"n1","lemma":"ливия","pos":"NOUN","is_path_node":false}],"edges":[{"parent":"n0","child":"n1","added_prefixes":[],"added_suffixes":[],"added_postfixes":[],"root_alternation":true,"pos_change":"NOUN>NOUN","semantic_type":null}],"cross_links":[],"related_families":[]}

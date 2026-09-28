@@ -1,0 +1,1 @@
+{"id":"f03187","root_lemma":"сноб","nodes":[{"id":"n0","lemma":"сноб","pos":"NOUN","is_path_node":true},{"id":"n1","lemma":"снбо","pos":"NOUN","is_path_node":false}],"edges":[{"parent":"n0","child":"n1","added_prefixes":[],"added_suffixes":[],"added_postfixes":[],"root_alternation":true,"pos_change":"NOUN>NOUN","semantic_type":null}],"cross_links":[],"related_families":[]}

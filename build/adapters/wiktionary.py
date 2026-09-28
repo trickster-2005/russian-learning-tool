@@ -31,7 +31,7 @@ EN_POS = {
 }
 SKIP_SENSE_TAGS = {"obsolete", "archaic", "rare", "dated"}
 AFFIX_TEMPLATES = {"prefix", "pre", "suffix", "suf", "affix", "af", "confix", "con"}
-CACHE_VERSION = 3
+CACHE_VERSION = 4
 
 
 @dataclass
@@ -40,6 +40,8 @@ class WiktEntry:
     glosses: list[str] = field(default_factory=list)  # usable senses, in order
     stressed: str | None = None  # canonical form with U+0301
     etym: list[dict] = field(default_factory=list)  # affix templates (name + args)
+    derived: int = 0  # number of listed derived terms
+    related: frozenset[str] = frozenset()  # normalized derived + related words
 
 
 def _sense_ok(sense: dict) -> bool:
@@ -104,10 +106,19 @@ def load_en() -> dict[str, list[WiktEntry]] | None:
                 for t in o.get("etymology_templates", []) or []
                 if t.get("name") in AFFIX_TEMPLATES
             ]
+            derived = [x.get("word", "") for x in o.get("derived", []) or []]
+            related = [x.get("word", "") for x in o.get("related", []) or []]
             if not glosses and not stressed and not etym:
                 continue
             out.setdefault(norm_key(word), []).append(
-                WiktEntry(pos=EN_POS.get(o.get("pos", ""), "OTHER"), glosses=glosses, stressed=stressed, etym=etym)
+                WiktEntry(
+                    pos=EN_POS.get(o.get("pos", ""), "OTHER"),
+                    glosses=glosses,
+                    stressed=stressed,
+                    etym=etym,
+                    derived=len(derived),
+                    related=frozenset(norm_key(w) for w in derived + related if w and " " not in w),
+                )
             )
         return out
 

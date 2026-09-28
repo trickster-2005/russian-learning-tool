@@ -1,0 +1,1 @@
+{"id":"f03486","root_lemma":"чернь","nodes":[{"id":"n0","lemma":"чернь","pos":"NOUN","is_path_node":true},{"id":"n1","lemma":"черно","pos":"ADV","is_path_node":false}],"edges":[{"parent":"n0","child":"n1","added_prefixes":[],"added_suffixes":[],"added_postfixes":[],"root_alternation":true,"pos_change":"NOUN>ADV","semantic_type":null}],"cross_links":[],"related_families":[]}

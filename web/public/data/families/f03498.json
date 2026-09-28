@@ -1,0 +1,1 @@
+{"id":"f03498","root_lemma":"шалый","nodes":[{"id":"n0","lemma":"шалый","pos":"ADJ","is_path_node":true},{"id":"n1","lemma":"шаль","pos":"NOUN","is_path_node":false}],"edges":[{"parent":"n0","child":"n1","added_prefixes":[],"added_suffixes":[],"added_postfixes":[],"root_alternation":true,"pos_change":"ADJ>NOUN","semantic_type":null}],"cross_links":[],"related_families":[]}

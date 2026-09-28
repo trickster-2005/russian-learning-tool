@@ -127,6 +127,58 @@ def test_reflexive_postfix(pipe):
     assert e.added_postfixes == ["-ся"] and e.semantic_type == "reflexive"
 
 
+# -- tree-cleaning rules -------------------------------------------------------------------
+
+
+@pytest.fixture
+def cleaning(pipe):
+    from adapters.segmenter import Segmenter
+
+    pipe.segmenter = Segmenter({})
+    pipe.segmenter._model_cache = {
+        "вход": seg("в:PREF ход:ROOT"),
+        "ходить": seg("ход:ROOT и:SUFF ть:END"),
+        "выговор": seg("вы:PREF говор:ROOT"),
+        "говорить": seg("говор:ROOT и:SUFF ть:END"),
+        "деться": seg("де:ROOT ть:END ся:POSTFIX"),
+        "он": seg("он:ROOT"),
+        "читать": seg("чит:ROOT а:SUFF ть:END"),
+        "чтение": seg("чт:ROOT ени:SUFF е:END"),
+    }
+    pipe.level_keys = set()
+    pipe.freq = FakeFreq({"бри": 3.29, "брать": 4.66, "работа": 5.4, "работать": 5.0})
+    return pipe
+
+
+def test_inverted_edges_are_detected(cleaning):
+    add_nodes(cleaning, [("a", "вход", "NOUN", None), ("b", "ходить", "VERB", "a")])
+    assert cleaning.inverted("a", "b")  # a prefix is never removed by derivation
+    add_nodes(cleaning, [("c", "выговор", "NOUN", None), ("d", "говорить", "VERB", "c")])
+    assert cleaning.inverted("c", "d")  # equal affix counts, but the parent has a prefix
+
+
+def test_root_mismatch_and_alternation(cleaning):
+    add_nodes(cleaning, [("a", "деться", "VERB", None), ("b", "он", "NOUN", "a")])
+    assert not cleaning.plausible("a", "b")
+    add_nodes(cleaning, [("c", "читать", "VERB", None), ("d", "чтение", "NOUN", "c")])
+    assert cleaning.plausible("c", "d")
+
+
+def test_rare_parent_rule(cleaning):
+    add_nodes(cleaning, [("a", "бри", "NOUN", None), ("b", "брать", "VERB", "a")])
+    assert cleaning.rare_parent("a", "b")
+    add_nodes(cleaning, [("c", "работа", "NOUN", None), ("d", "работать", "VERB", "c")])
+    assert not cleaning.rare_parent("c", "d")
+    cleaning.level_keys = {"бри"}
+    assert not cleaning.rare_parent("a", "b")  # listed words are trusted
+
+
+def test_bound_stem_etymology():
+    from adapters.wiktionary import parse_affix_template
+
+    assert parse_affix_template({"name": "af", "args": {"1": "ru", "2": "у-", "3": "-йти́"}}) == (["у-"], "идти", [])
+
+
 # -- segmentation post-processing ----------------------------------------------------------
 
 

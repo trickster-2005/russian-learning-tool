@@ -1,0 +1,1 @@
+{"id":"f02547","root_lemma":"март","nodes":[{"id":"n0","lemma":"март","pos":"NOUN","is_path_node":false},{"id":"n1","lemma":"мартин","pos":"NOUN","is_path_node":false}],"edges":[{"parent":"n0","child":"n1","added_prefixes":[],"added_suffixes":[],"added_postfixes":[],"root_alternation":true,"pos_change":"NOUN>NOUN","semantic_type":null}],"cross_links":[],"related_families":[]}

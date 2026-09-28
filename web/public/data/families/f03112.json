@@ -1,0 +1,1 @@
+{"id":"f03112","root_lemma":"Салла","nodes":[{"id":"n0","lemma":"Салла","pos":"NOUN","is_path_node":true},{"id":"n1","lemma":"Салли","pos":"NOUN","is_path_node":false}],"edges":[{"parent":"n0","child":"n1","added_prefixes":[],"added_suffixes":[],"added_postfixes":[],"root_alternation":false,"pos_change":"NOUN>NOUN","semantic_type":null}],"cross_links":[],"related_families":[]}

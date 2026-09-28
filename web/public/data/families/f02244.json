@@ -1,0 +1,1 @@
+{"id":"f02244","root_lemma":"инди","nodes":[{"id":"n0","lemma":"инди","pos":"NOUN","is_path_node":false},{"id":"n1","lemma":"инд","pos":"NOUN","is_path_node":false}],"edges":[{"parent":"n0","child":"n1","added_prefixes":[],"added_suffixes":[],"added_postfixes":[],"root_alternation":false,"pos_change":"NOUN>NOUN","semantic_type":null}],"cross_links":[],"related_families":[]}

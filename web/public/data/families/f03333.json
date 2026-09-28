@@ -1,0 +1,1 @@
+{"id":"f03333","root_lemma":"Туск","nodes":[{"id":"n0","lemma":"Туск","pos":"NOUN","is_path_node":true},{"id":"n1","lemma":"тусклый","pos":"ADJ","is_path_node":false}],"edges":[{"parent":"n0","child":"n1","added_prefixes":[],"added_suffixes":["-л-"],"added_postfixes":[],"root_alternation":false,"pos_change":"NOUN>ADJ","semantic_type":null}],"cross_links":[],"related_families":[]}

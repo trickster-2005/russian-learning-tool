@@ -172,7 +172,7 @@ def filter_wiktionary(lang: str, raw: Path, out: Path) -> int:
 
 def download_wiktionary(lang: str) -> None:
     out = CACHE / f"wikt_{lang}_ru.jsonl"
-    if out.exists() or (CACHE / f"wikt_{lang}.v3.pkl").exists():
+    if out.exists() or (CACHE / f"wikt_{lang}.v4.pkl").exists():
         log(f"cached: wikt_{lang}")
         return
     if lang == "en":

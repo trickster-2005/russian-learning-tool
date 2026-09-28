@@ -1,0 +1,1 @@
+{"id":"f02740","root_lemma":"ныне","nodes":[{"id":"n0","lemma":"ныне","pos":"ADV","is_path_node":false},{"id":"n1","lemma":"поныне","pos":"ADV","is_path_node":false}],"edges":[{"parent":"n0","child":"n1","added_prefixes":["по-"],"added_suffixes":[],"added_postfixes":[],"root_alternation":false,"pos_change":"ADV>ADV","semantic_type":null}],"cross_links":[],"related_families":[]}

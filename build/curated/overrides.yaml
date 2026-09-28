@@ -4,9 +4,16 @@
 # stress:        lemma -> "записа́ть"
 # gloss_en:      lemma -> "to write down"
 # gloss_zh:      lemma -> "記下"
-# family:        lemma -> root lemma of the family it should belong to
+# family:        lemma -> parent lemma it should hang under, or null to start its own family
 segmentation: {}
 stress: {}
 gloss_en: {}
 gloss_zh: {}
-family: {}
+family:
+  # вод- "lead" is a different root from вода "water" (DeriNet.RU merges them)
+  водить: null
+  завод: заводить
+  ввод: вводить
+  привод: приводить
+  # работать is formed from работа
+  работать: работа
