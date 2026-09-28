@@ -206,4 +206,14 @@ def parse_affix_template(t: dict) -> tuple[list[str], str | None, list[str]]:
                 suffixes.append(p if not p.endswith("-") else p)
             elif base is None:
                 base = p
+    if base is None:
+        # Bound verb stems: {{af|ru|у-|-йти}} means у- + идти.
+        for s in list(suffixes):
+            if s.strip("-") in BOUND_STEMS:
+                base = BOUND_STEMS[s.strip("-")]
+                suffixes.remove(s)
+                break
     return prefixes, base, suffixes
+
+
+BOUND_STEMS = {"йти": "идти"}

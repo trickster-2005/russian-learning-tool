@@ -207,5 +207,13 @@
   "common.error": "無法載入資料。請檢查網路連線後重新整理頁面。",
   "common.close": "關閉",
   "family.notFound": "這個詞族不存在。搜尋一個詞來找到它的詞族。",
-  "family.back": "回到搜尋"
+  "family.back": "回到搜尋",
+  "posShort.NOUN": "名",
+  "posShort.VERB": "動",
+  "posShort.ADJ": "形",
+  "posShort.ADV": "副",
+  "posShort.NUM": "數",
+  "posShort.PRON": "代",
+  "posShort.FUNC": "虛",
+  "posShort.OTHER": "他"
 }

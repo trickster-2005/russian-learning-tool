@@ -207,5 +207,13 @@
   "common.error": "Couldn't load the data. Check your connection and reload the page.",
   "common.close": "Close",
   "family.notFound": "This family doesn't exist. Search for a word to find its family.",
-  "family.back": "Back to search"
+  "family.back": "Back to search",
+  "posShort.NOUN": "n.",
+  "posShort.VERB": "v.",
+  "posShort.ADJ": "adj.",
+  "posShort.ADV": "adv.",
+  "posShort.NUM": "num.",
+  "posShort.PRON": "pron.",
+  "posShort.FUNC": "func.",
+  "posShort.OTHER": "other"
 }

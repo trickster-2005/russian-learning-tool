@@ -4,6 +4,7 @@ import { useI18n } from "../i18n";
 import { MY_LEVELS, useSettings, type ColorBy, type Theme } from "../lib/settings";
 import type { Level } from "../data/types";
 import SearchBox from "./SearchBox";
+import { readStore } from "../lib/storage";
 
 function GearIcon() {
   return (
@@ -90,6 +91,7 @@ export default function TopBar() {
   const { t, lang, setLang } = useI18n();
   const loc = useLocation();
   const isHome = loc.pathname === "/";
+  const lastFamily = loc.pathname.startsWith("/family/") ? loc.pathname.split("/")[2] : readStore("rwf.lastFamily");
   return (
     <header className="topbar">
       <a className="skip-link" href="#main" onClick={(e) => {
@@ -103,6 +105,7 @@ export default function TopBar() {
       </Link>
       {!isHome && <SearchBox />}
       <nav className="topnav" aria-label={t("nav.main")}>
+        {lastFamily && <NavLink to={`/family/${lastFamily}`}>{t("nav.family")}</NavLink>}
         <NavLink to="/browse">{t("nav.browse")}</NavLink>
         <NavLink to="/about">{t("nav.about")}</NavLink>
         <div className="lang-toggle" role="group" aria-label={t("lang.label")}>

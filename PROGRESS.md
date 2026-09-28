@@ -8,12 +8,25 @@ Working notes so the build can be resumed after an interruption. Spec: the v2 vi
 |---|---|
 | M1 Download & discovery | Done. DeriNet.RU 0.5 from UDer 1.1 (the ÚFAL zip link is 404); English Wiktionary from kaikki's Russian-only extract (90 MB). |
 | M2 Adapters & pipeline | Done; iterating on tree-cleaning quality (spot checks in `build/reports/spot_checks.md`). |
-| M3 Frontend skeleton | In progress: routing, i18n, settings, search, styles written. |
-| M4 Tree & detail panel | To do |
-| M5 Levels | Logic done (`web/src/lib/levels.ts`); UI to do |
-| M6 Filters | Logic + tests done (`web/src/lib/filters.ts`); UI to do |
-| M7 Browse | To do |
-| M8 Polish & deploy | To do: About page, README (EN/中文), LICENSES, FINAL_REPORT, GitHub Actions, push |
+| M3 Frontend skeleton | Written, typechecks (`tsc` passes) |
+| M4 Tree & detail panel | Written (TreeView, OutlineView, DetailPanel); not yet tested in a browser |
+| M5 Levels | Written |
+| M6 Filters | Written; logic tests pass |
+| M7 Browse | Written; not yet tested in a browser |
+| M8 Polish & deploy | README, LICENSES, About page, deploy workflow written. Still to do: see below |
+
+## Next steps (in order)
+
+1. Tree quality: some families still hang under odd roots from DeriNet (писать under пися, брать under бра,
+   новый under новьё, вода under водить, говорить under говоря; ходить's prefixed verbs are marked NOUN in
+   one small family). Ideas: prefer the higher-frequency word as parent when an unconfirmed edge links two
+   words of equal complexity; add `family` overrides in `build/curated/overrides.yaml` for spot-check words.
+2. Run the site (`.claude/launch.json` → "web"), check: search записал → писать family focused on записать;
+   EN/中文 switch persists after reload; `?level=A1,A2&pos=VERB&mode=prune`; 375px mobile; accessibility.
+3. Write DECISIONS.md cleanly (manual decisions: UDer copy of DeriNet.RU, Russian-only kaikki extract,
+   venv + `--no-deps` rumorpheme, homograph keys `lemma#POS`, extra files summary.json / families_index members / meta.json).
+4. FINAL_REPORT.md, commit data (`web/public/data`), push to https://github.com/trickster-2005/russian-learning-tool.git,
+   enable Pages (Settings → Pages → Source: GitHub Actions).
 
 ## How to resume
 

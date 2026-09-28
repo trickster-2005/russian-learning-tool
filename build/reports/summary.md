@@ -4,66 +4,69 @@ Built 2026-09-28.
 
 ## Counts
 
-- Families: 14,121
-- Nodes: 25,821
-- Path nodes (rare, kept to connect the tree): 5,498
-- Edges: 11,700
-- Inflected-form index entries: 405,662
+- Families: 11,331
+- Nodes: 23,816
+- Path nodes (rare, kept to connect the tree): 3,466
+- Edges: 12,485
+- Inflected-form index entries: 361,001
 
 ### Family size distribution
 
 | size | families |
 |---|---|
-| 1 | 8,823 |
-| 2–5 | 4,820 |
-| 6–20 | 461 |
-| 21–100 | 17 |
+| 1 | 7,127 |
+| 2–5 | 3,597 |
+| 6–20 | 528 |
+| 21–100 | 79 |
 | 100+ | 0 |
 
 ### Pipeline statistics
 
 - derinet_nodes: 337,632
 - derinet_trees: 172,907
-- edges: 11,700
-- families: 14,121
-- homograph_keys: 631
-- implausible_edges_cut: 2,547
-- kept_nodes: 25,821
-- nonword_nodes_removed: 153,796
-- orphans_reattached_by_root: 2,524
-- path_nodes: 5,498
-- wikt_en_words: 0
+- edges: 12,485
+- edges_cut_inverted: 6,947
+- edges_cut_root_mismatch: 2,100
+- families: 11,331
+- homograph_keys: 636
+- kept_nodes: 23,816
+- nonword_nodes_removed: 153,489
+- orphans_reattached_by_root: 6,321
+- path_nodes: 3,466
+- wikt_en_words: 394,475
 - wikt_ru_words: 436,885
 - wikt_zh_words: 95,850
-- wiktionary_reparented: 0
-- wiktionary_reparented_across_trees: 0
+- wiktionary_reparented: 16,310
+- wiktionary_reparented_across_trees: 13,898
 
 ## Coverage by source
 
 | field | source | nodes | share |
 |---|---|---|---|
-| examples | no | 22,452 | 87.0% |
-| examples | yes | 3,369 | 13.0% |
-| gloss_en | none | 22,444 | 86.9% |
-| gloss_en | smartool | 3,377 | 13.1% |
-| gloss_zh | none | 9,782 | 37.9% |
-| gloss_zh | wiktionary-zh | 16,039 | 62.1% |
-| level_kelly | no | 17,794 | 68.9% |
-| level_kelly | yes | 8,027 | 31.1% |
-| level_smartool | no | 22,444 | 86.9% |
-| level_smartool | yes | 3,377 | 13.1% |
-| segmentation | rumorpheme | 25,821 | 100.0% |
-| stress | monosyllable | 2,192 | 8.5% |
-| stress | none | 1,347 | 5.2% |
-| stress | ruaccent | 8,067 | 31.2% |
-| stress | wiktionary-ru | 14,021 | 54.3% |
-| stress | yo | 194 | 0.8% |
+| examples | no | 20,447 | 85.9% |
+| examples | yes | 3,369 | 14.1% |
+| gloss_en | none | 6,401 | 26.9% |
+| gloss_en | smartool | 3,377 | 14.2% |
+| gloss_en | wiktionary-en | 14,038 | 58.9% |
+| gloss_zh | none | 8,315 | 34.9% |
+| gloss_zh | wiktionary-zh | 15,501 | 65.1% |
+| level_kelly | no | 15,789 | 66.3% |
+| level_kelly | yes | 8,027 | 33.7% |
+| level_smartool | no | 20,439 | 85.8% |
+| level_smartool | yes | 3,377 | 14.2% |
+| segmentation | rumorpheme | 23,816 | 100.0% |
+| stress | monosyllable | 2,156 | 9.1% |
+| stress | none | 726 | 3.0% |
+| stress | ruaccent | 1,858 | 7.8% |
+| stress | wiktionary-en | 16,933 | 71.1% |
+| stress | wiktionary-ru | 1,951 | 8.2% |
+| stress | yo | 192 | 0.8% |
 
 ## Edge affix sources
 
 | source | edges |
 |---|---|
-| segmentation | 11,700 |
+| segmentation | 12,485 |
 
 ## Frequency-estimated CEFR thresholds
 

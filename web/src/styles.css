@@ -1183,6 +1183,11 @@ table.data td .ru a {
     padding-top: 6vh;
   }
 }
+@media (min-width: 901px) {
+  .filter-drawer-inline > .btn {
+    display: none;
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

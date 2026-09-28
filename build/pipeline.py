@@ -217,23 +217,43 @@ class Pipeline:
         need = max(1, -(-6 * short // 10))  # ceil(0.6 * short)
         return common_subsequence(rp, rc) >= need
 
+    def complexity(self, g: str) -> int | None:
+        """Number of prefixes, suffixes and postfixes (None when unsegmented)."""
+        seg = self.segmenter.segment(self.b.lemma[g], self.b.seg_raw.get(g, ""))
+        if not seg:
+            return None
+        return sum(1 for m in seg.morphemes if m.type in ("PREF", "SUFF", "POSTFIX"))
+
+    def inverted(self, p: str, c: str) -> bool:
+        cp, cc = self.complexity(p), self.complexity(c)
+        return cp is not None and cc is not None and cp > cc
+
     def cut_implausible(self) -> None:
-        """Cut machine-built edges whose roots don't resemble each other (e.g. деться -> он)."""
+        """Cut machine-built edges whose roots differ (деться -> он) or whose direction is inverted (запись -> писать)."""
         log("step 1e: cutting implausible DeriNet edges")
         b = self.b
-        cut = 0
+        cut_roots = cut_inverted = 0
         for g in sorted(b.valid):
             p = b.parent[g]
             if p is None or g in self.wikt_confirmed:
                 continue
             if not self.plausible(p, g):
                 b.parent[g] = None
-                cut += 1
-        b.stats["implausible_edges_cut"] = cut
+                cut_roots += 1
+            elif self.inverted(p, g):
+                b.parent[g] = None
+                cut_inverted += 1
+        b.stats["edges_cut_root_mismatch"] = cut_roots
+        b.stats["edges_cut_inverted"] = cut_inverted
         log_decision(
             "DeriNet.RU edges not confirmed by Wiktionary are cut when parent and child roots (model segmentation, "
             "else stem) share a common subsequence shorter than 60% of the shorter root (keeps читать→чтение, "
             "cuts деться→он). The child's subtree then becomes its own family unless re-attached below."
+        )
+        log_decision(
+            "Direction rule: derivation adds affixes, so an unconfirmed DeriNet edge whose parent has more "
+            "prefixes+suffixes+postfixes than the child is treated as inverted and cut (запись→писать, вход→ходить, "
+            "водить→вода). Orphan re-attachment only picks parents that are not more complex than the orphan."
         )
 
     def attach_orphans(self) -> None:
@@ -254,7 +274,7 @@ class Pipeline:
             for c in by_tree[b.tree_of[g]]:
                 if c == g or self._subtree_contains(b.parent, g, c):
                     continue
-                if self.root_of(c) != rg:
+                if self.root_of(c) != rg or self.inverted(c, g):
                     continue
                 score = (len(b.lemma[c]) < len(b.lemma[g]), self.zipf(c))
                 if best_score is None or score > best_score:
