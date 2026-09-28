@@ -85,9 +85,11 @@ export function ancestors(shape: TreeShape, id: string): string[] {
   return out;
 }
 
-/** Default expansion: 2 levels; if that shows more than 300 nodes, 1 level. */
+/**
+ * Default expansion: only the root is open (the root and its direct children are
+ * visible); deeper levels start collapsed. The page adds the path to a focused word.
+ * (Spec §13.3 said 2 levels; changed at the user's request to keep trees compact.)
+ */
 export function defaultExpanded(shape: TreeShape): Set<string> {
-  const two = expandToDepth(shape, 2);
-  if (countVisible(visibleTree(shape, two, new Set(), null, null)) <= MAX_VISIBLE) return two;
   return expandToDepth(shape, 1);
 }

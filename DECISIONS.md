@@ -28,6 +28,7 @@ Small decisions made while building, one line each: what was decided and why.
 - On phones, arriving with `?focus=` highlights and centers the word but doesn't open the bottom sheet, so the tree stays visible.
 - External dictionary links (Wiktionary en/zh/ru, OpenRussian, Forvo) sit right after the meaning in the detail panel; in 中文 mode the Chinese Wiktionary is listed first.
 - The i18n React context lives in `web/src/i18n/context.ts` (no JSON imports) so editing translations during development can't create a second context.
+- Tree defaults (user request, overrides §13.3's "2 levels" and "center the focus"): only the root is expanded (root + direct children visible), plus the path to a focused word; the initial view is actual size, anchored at the top-left of the canvas under the family title, shifting only as far as needed to keep a focused word visible. The ⤢ button still fits the whole tree.
 
 ## Recorded by the build (`log_decision` in `build/`)
 

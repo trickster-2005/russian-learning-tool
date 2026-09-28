@@ -11,6 +11,8 @@ import { morphPieces } from "./Morph";
 const ROW = 48;
 const BOX_H = 30;
 const PAD = 9;
+const ANCHOR_PAD_X = 24;
+const ANCHOR_PAD_Y = 20;
 
 interface Item {
   kind: "node" | "more";
@@ -179,12 +181,35 @@ export default function TreeView(p: TreeViewProps) {
     [layout],
   );
 
+  /**
+   * Initial view: actual size, tree anchored at the top-left of the canvas (right
+   * under the family title). A focused word that would fall outside the view is
+   * scrolled into view while keeping the tree left-aligned where possible.
+   */
+  const anchor = useCallback(
+    (focusId: string | null) => {
+      const svg = svgRef.current;
+      const z = zoomRef.current;
+      if (!svg || !z) return;
+      const { width, height } = svg.getBoundingClientRect();
+      const topEdge = layout.bounds.minY - BOX_H / 2 - 18; // room for "Next" marks and edge labels
+      let tx = ANCHOR_PAD_X;
+      let ty = ANCHOR_PAD_Y - topEdge;
+      const q = focusId ? layout.pos.get(focusId) : undefined;
+      if (q) {
+        if (q.y + ty > height - ROW) ty = Math.round(height / 3) - q.y;
+        if (q.x + q.w + 40 + tx > width) tx = Math.min(ANCHOR_PAD_X, width - (q.x + q.w) - 60);
+      }
+      select(svg).call(z.transform, zoomIdentity.translate(tx, ty));
+    },
+    [layout],
+  );
+
   useLayoutEffect(() => {
     if (!firstFit.current) return;
     firstFit.current = false;
-    if (p.centerOn && layout.pos.has(p.centerOn)) center(p.centerOn, false);
-    else fit(false);
-  }, [layout, fit, center, p.centerOn]);
+    anchor(p.centerOn && layout.pos.has(p.centerOn) ? p.centerOn : null);
+  }, [layout, anchor, p.centerOn]);
 
   const lastCenter = useRef<string | null>(p.centerOn);
   useEffect(() => {
